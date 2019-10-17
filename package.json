@@ -25,6 +25,7 @@
     "url": "git://github.com/mathjax/mathjax-node-cli.git"
   },
   "dependencies": {
+    "fs": "0.0.1-security",
     "mathjax-node-sre": "*",
     "yargs": ">=11.*"
   },

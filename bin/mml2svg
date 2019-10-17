@@ -24,9 +24,10 @@
  */
 
 var mjAPI = require("mathjax-node-sre");
+var fs = require("fs");
 
 var argv = require("yargs")
-  .demand(1).strict()
+  .demand(0).strict()
     .usage("$0 [options] 'math' > file.svg")
     .options({
       linebreaks: {
@@ -41,6 +42,10 @@ var argv = require("yargs")
     font: {
       default: "TeX",
       describe: "web font to use"
+    },
+    file: {
+      default: "",
+      describe: "file path containing MathML"
     },
     ex: {
       default: 6,
@@ -62,7 +67,7 @@ mjAPI.config({MathJax: {SVG: {font: argv.font}}, extensions: argv.extensions});
 mjAPI.start();
 
 mjAPI.typeset({
-  math: argv._[0],
+  math: argv.file ? fs.readFileSync(argv.file) : argv._[0],
   format: "MathML",
   svg:true,
   speakText: argv.speech,
